@@ -164,9 +164,14 @@ function (angular, _, kbn) {
         var timeCol = series.columns.indexOf('time');
 
         _.each(series.columns, function(column, index) {
-          if (column === "time" || column === "sequence_number") {
-            return;
-          }
+
+	  // skip all non-"value" prefixed column names:
+	  if ( ! /^value/.test(column) ) {
+	      return;
+	  }
+///          if (column === "time" || column === "sequence_number") {
+///            return;
+///          }
 
           var target = data.alias || series.name + "." + column;
           var datapoints = [];
